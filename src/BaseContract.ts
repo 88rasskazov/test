@@ -1,0 +1,67 @@
+export class BaseContract {
+  contractId: string;
+  clientName: string;
+  isActive: boolean;
+  constructor(contractId:string, clientName: string, isActive:boolean) {
+    this.contractId = contractId;
+    this.clientName = clientName;
+    this.isActive = isActive;
+  }
+
+  activate(): void {
+    this.isActive = true;
+  }
+
+  deactivate(): void {
+    this.isActive = false;
+  }
+}
+
+export class DepositContract extends BaseContract {
+  amount: number;
+  interestRate: number;
+
+  constructor(contractId:string, clientName: string, isActive:boolean, amount:number, interestRate:number) {
+    super(contractId, clientName, isActive);
+    this.amount = amount;
+    this.interestRate = interestRate;
+  }
+
+  calculateInterest(): number {
+    return this.amount / 100 * this.interestRate;
+  }
+}
+
+export class LoanContract extends BaseContract {
+  loanAmount: number;
+  monthlyPayment: number;
+  loanTermMonths: number;
+
+  constructor(contractId:string, clientName: string, isActive: boolean, loanAmount: number, monthlyPayment: number, loanTermMonths: number) {
+    super(contractId, clientName, isActive);
+    this.loanAmount = loanAmount;
+    this.monthlyPayment = monthlyPayment;
+    this.loanTermMonths = loanTermMonths;
+  }
+
+  calculateTotalPayment(): number {
+    return this.monthlyPayment * this.loanTermMonths;
+  }
+}
+
+export class InsuranceContract extends BaseContract {
+  insuranceType: string;
+  premium: number;
+  termYears: number;
+
+  constructor(contractId:string, clientName: string, isActive:boolean, insuranceType: string, premium: number, termYears: number) {
+    super(contractId, clientName, isActive);
+    this.insuranceType = insuranceType;
+    this.premium = premium;
+    this.termYears = termYears;
+  }
+
+  calculateTotalPremium(): number {
+    return this.premium * this.termYears;
+  }
+}
